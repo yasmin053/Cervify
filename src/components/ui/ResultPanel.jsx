@@ -4,16 +4,11 @@ import Toggle from "./toggle";
 const ResultPanel = () => {
   // Manage the toggle state (on/off) and confidence slider value.
   const [isActive, setIsActive] = useState(false);
-  const [confidence, setConfidence] = useState(50);
+  
 
   // Toggle handler
   const handleToggle = () => {
     setIsActive((prev) => !prev);
-  };
-
-  // Confidence slider handler
-  const handleConfidenceChange = (e) => {
-    setConfidence(e.target.value);
   };
 
   // Show generated text when active; 
@@ -30,20 +25,7 @@ const ResultPanel = () => {
           <Toggle toggled={isActive} onToggle={handleToggle} />
         </div>
 
-        {/* Confidence Slider Section */}
-        <div className="mb-2">
-          <label className="block text-xs text-gray-700 mb-1">
-            Confidence: {confidence}%
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={confidence}
-            onChange={handleConfidenceChange}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-          />
-        </div>
+      
 
         {/* Description / Generated Text Area */}
         <div className="bg-white p-2 rounded-xl flex-grow text-sm text-gray-700">

@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import PictureUploadModal from "../components/PictureUploadModal";
 
 const Home = () => {
+  // the picture type
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pictureType, setPictureType] = useState(null);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  // Callback for when the user selects a type in the modal.
+  const handleSelectType = (type) => {
+    setPictureType(type);
+    console.log("User selected:", type);
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex flex-col relative"
@@ -20,15 +34,31 @@ const Home = () => {
           </div>
 
           <div className="bg-white/30 backdrop-blur-md p-10 rounded-2xl border border-blue-400 shadow-xl w-full max-w-md text-center">
-            <button className="px-8 py-4 text-lg text-white bg-blue-700 rounded-full font-semibold hover:bg-blue-800 hover:shadow-[0_0_12px_#3b82f6] transition w-full">
+            <button
+              onClick={openModal}
+              className="px-8 py-4 text-lg text-white bg-blue-700 rounded-full font-semibold hover:bg-blue-800 hover:shadow-[0_0_12px_#3b82f6] transition w-full"
+            >
               Upload photo
             </button>
             <p className="text-sm mt-4 italic text-gray-700">
-              Make sure it is Obj x40 when uploading
+              Make sure it is Obj x40 when uploading.
             </p>
           </div>
         </div>
       </div>
+      {/* Render the PictureUploadModal */}
+      <PictureUploadModal
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        onSelectType={handleSelectType}
+      />
+      {pictureType && (
+        <div className="absolute bottom-4 left-4 p-2 bg-white rounded shadow">
+          <p className="text-sm text-gray-800">
+            Selected type: <span className="font-semibold">{pictureType}</span>
+          </p>
+        </div>
+      )}
     </div>
   );
 };
